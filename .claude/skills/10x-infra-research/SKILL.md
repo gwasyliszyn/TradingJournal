@@ -125,12 +125,10 @@ AskUserQuestion:
 AskUserQuestion:
 - question: "Do you or your team already have hands-on experience with any specific platform you'd feel comfortable deploying to?"
   header: "Existing familiarity"
-  options:
-  - label: "Yes — Vercel / Netlify"
-    description: "Comfortable with JAMstack-style platforms."
+  options:  
   - label: "Yes — Cloudflare (Workers / Pages)"
     description: "Comfortable with edge-first deployment."
-  - label: "Yes — Railway / Render / Fly.io"
+  - label: "Yes — Fly.io"
     description: "Comfortable with container-based PaaS."
   - label: "Yes — AWS / GCP / Azure"
     description: "Comfortable with hyperscaler infrastructure."
@@ -177,11 +175,8 @@ Use subagents to research platforms in parallel. The goal is to gather enough si
 | Platform | Primary use case |
 |---|---|
 | Cloudflare Workers + Pages | Edge-first, serverless JS/TS, global CDN |
-| Vercel | Frontend + serverless functions, Next.js-native |
-| Netlify | Frontend + serverless, JAMstack, form/auth primitives |
 | Fly.io | Container-based PaaS, persistent processes, multi-region |
-| Railway | Full-stack PaaS, databases co-located, fast DX |
-| Render | Container/static hosting, free tier, cron jobs |
+
 
 For each platform, spawn a subagent with a focused research prompt. Run all six in parallel:
 
@@ -221,11 +216,8 @@ Score each researched platform against the five criteria from `references/agent-
 | Platform | CLI-first | Managed/Serverless | Agent-readable docs | Stable deploy API | MCP / Integration | Total |
 |---|---|---|---|---|---|---|
 | Cloudflare | | | | | | |
-| Vercel | | | | | | |
-| Netlify | | | | | | |
 | Fly.io | | | | | | |
-| Railway | | | | | | |
-| Render | | | | | | |
+
 
 Soft-weight the criteria by interview answers:
 - Q2 "minimize cost" → penalize platforms with expensive base tiers.

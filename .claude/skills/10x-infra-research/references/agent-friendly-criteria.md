@@ -8,7 +8,7 @@ Five criteria for evaluating whether a deployment platform suits AI-agent-driven
 
 **Definition**: the platform can be fully managed through a CLI tool or non-interactive API — deploy, configure, scale, tail logs, roll back — without a browser or GUI. An agent running in a terminal can complete the full operational loop unattended.
 
-**Examples that pass**: Fly.io (`flyctl`), Cloudflare Workers (`wrangler`), Railway (`railway` CLI), Render (deploy hooks + API), Vercel (`vercel` CLI), Netlify (`netlify` CLI).
+**Examples that pass**:  Cloudflare Workers (`wrangler`), Azure (Azure CLI).
 
 **Examples that fail**: platforms where critical operations (SSL provisioning, domain routing, billing tier changes) require logging into a dashboard and clicking through wizards.
 
@@ -20,7 +20,7 @@ Five criteria for evaluating whether a deployment platform suits AI-agent-driven
 
 **Definition**: the platform abstracts away OS patching, network configuration, and hardware provisioning. The developer ships a build artifact (container image, bundle, function code) and the platform handles the rest. Higher-level = fewer things that can break in ways the agent doesn't know how to fix.
 
-**Preferred**: Cloudflare Workers/Pages, Netlify, Vercel, Fly.io (managed VMs), Railway, Render. These platforms handle TLS, routing, scaling, and health checks automatically.
+**Preferred**: Cloudflare Workers/Pages,  Fly.io (managed VMs), Azure. These platforms handle TLS, routing, scaling, and health checks automatically.
 
 **Requires caution**: raw VMs (AWS EC2, GCP Compute Engine, Azure VMs), bare-metal, or Kubernetes clusters without a managed control plane. These are appropriate for production scale, not MVP. They shift significant operational burden onto the developer (and agent).
 
@@ -32,7 +32,7 @@ Five criteria for evaluating whether a deployment platform suits AI-agent-driven
 
 **Definition**: the platform's official documentation is available in agent-readable format — markdown files, MDX, or a published `llms.txt` / `llms-full.txt`. The agent can load and reason over docs directly rather than scraping HTML or hallucinating API syntax.
 
-**Examples that pass**: Cloudflare (publishes `llms.txt` and markdown source in GitHub), Fly.io (docs in GitHub as MDX), Vercel (docs as MDX on GitHub).
+**Examples that pass**: Cloudflare (publishes `llms.txt` and markdown source in GitHub), Fly.io (docs in GitHub as MDX), Azure.
 
 **Examples that fail**: documentation that lives exclusively in a rendered SPA with no source available, or that requires a login to access.
 
@@ -44,7 +44,7 @@ Five criteria for evaluating whether a deployment platform suits AI-agent-driven
 
 **Definition**: deployment is a deterministic, one-command operation that returns a URL or success signal. Rollbacks are equally deterministic. The platform exposes a versioned API or webhook surface so an agent can trigger deployments as part of a workflow.
 
-**Examples that pass**: `wrangler deploy` (Cloudflare), `fly deploy` (Fly.io), `vercel --prod` (Vercel), Railway deploy via API, Render deploy hooks.
+**Examples that pass**: `wrangler deploy` (Cloudflare), `fly deploy` (Fly.io), Render deploy hooks.
 
 **Examples that fail**: platforms where deployment involves manual steps (copy files via FTP, click "publish" in a dashboard), or where the deployment API is undocumented and changes without notice.
 
@@ -57,11 +57,8 @@ Five criteria for evaluating whether a deployment platform suits AI-agent-driven
 **Definition**: the platform provides an MCP (Model Context Protocol) server, a published Claude/agent connector, or a well-maintained GitHub Actions / CI integration. This enables structured tool-use over platform operations rather than string-parsing CLI output.
 
 **Examples that pass**:
-- Netlify — official Netlify MCP Server, explicitly recommended alongside Netlify CLI.
-- Vercel — Vercel MCP, OAuth-backed (beta as of 2026 — record status during research).
 - Cloudflare — MCP servers across docs, Workers, observability.
 - GitHub — GitHub MCP Server exposes repos, issues, PRs and CI/CD intelligence.
-- AWS — Deployment SOPs in AWS MCP Server (preview as of 2026, region-limited).
 - Any platform with a published, agent-composable GitHub Action that covers deploy / status / logs.
 
 **Examples that fail**: platforms where the only operational path goes through dashboard clicking, undocumented internal APIs, or unsupported community wrappers.
