@@ -416,8 +416,8 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Automated
 
-- [x] 3.1 Lint passes: `npm run lint`
-- [x] 3.2 Build succeeds: `npm run build`
+- [x] 3.1 Lint passes: `npm run lint` — c4bc4fd
+- [x] 3.2 Build succeeds: `npm run build` — c4bc4fd
 
 #### Manual
 

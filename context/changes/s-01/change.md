@@ -1,7 +1,7 @@
 ---
 change_id: s-01
 title: Pre-market check-in with Readiness Score
-status: implementing
+status: implemented
 created: 2026-06-03
 updated: 2026-06-03
 archived_at: null
