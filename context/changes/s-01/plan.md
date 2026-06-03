@@ -401,8 +401,8 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Automated
 
-- [x] 2.1 Type checking passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint` — dab6a5f
+- [x] 2.2 Build succeeds: `npm run build` — dab6a5f
 
 #### Manual
 
@@ -416,8 +416,8 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Automated
 
-- [ ] 3.1 Lint passes: `npm run lint`
-- [ ] 3.2 Build succeeds: `npm run build`
+- [x] 3.1 Lint passes: `npm run lint`
+- [x] 3.2 Build succeeds: `npm run build`
 
 #### Manual
 

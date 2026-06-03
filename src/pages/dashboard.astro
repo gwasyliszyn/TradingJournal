@@ -1,24 +1,67 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { getTodayCheckin } from "@/lib/services/checkin";
+import { getScoreBand } from "@/lib/services/readiness-score";
 
 const { user } = Astro.locals;
+let checkinExists = false;
+let readinessScore: number | null = null;
+let bandLabel: string | null = null;
+let bandColorClass: string | null = null;
+
+if (user) {
+  const supabase = createClient(Astro.request.headers, Astro.cookies);
+  if (supabase) {
+    const result = await getTodayCheckin(supabase, user.id);
+    if (result?.checkin) {
+      checkinExists = true;
+      readinessScore = result.checkin.readiness_score;
+      const band = getScoreBand(readinessScore);
+      bandLabel = band.label;
+      bandColorClass = band.colorClass;
+    }
+  }
+}
 ---
 
 <Layout title="Dashboard">
-  <div class="bg-cosmic flex min-h-screen items-center justify-center p-4">
-    <div class="rounded-2xl border border-white/10 bg-white/10 p-8 text-center text-white backdrop-blur-xl">
-      <h1 class="mb-4 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
-        Dashboard
-      </h1>
-      <p class="text-blue-100/80">
-        Welcome, <span class="font-semibold text-white">{user?.email}</span>
+  <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
+    <div class="w-full max-w-md space-y-6">
+      <h1 class="text-center text-2xl font-bold tracking-tight">Dashboard</h1>
+      <p class="text-muted-foreground text-center">
+        Welcome, <span class="text-foreground font-semibold">{user?.email}</span>
       </p>
-      <p class="mt-2 text-sm text-blue-100/50">This page is only for authenticated users.</p>
-      <form method="POST" action="/api/auth/signout" class="mt-6">
-        <button
-          type="submit"
-          class="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/20"
-        >
+
+      <div class="bg-card rounded-xl border p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="font-semibold">Pre-market Check-in</h2>
+            {
+              checkinExists && readinessScore !== null && bandColorClass && bandLabel ? (
+                <div class="mt-1 flex items-center gap-2">
+                  <span
+                    class:list={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${bandColorClass}`}
+                  >
+                    {readinessScore} — {bandLabel}
+                  </span>
+                </div>
+              ) : (
+                <p class="text-muted-foreground mt-1 text-sm">Not completed yet</p>
+              )
+            }
+          </div>
+          <a
+            href="/checkin"
+            class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 items-center rounded-md px-4 text-sm font-medium shadow-xs"
+          >
+            {checkinExists ? "Edit" : "Start"}
+          </a>
+        </div>
+      </div>
+
+      <form method="POST" action="/api/auth/signout" class="text-center">
+        <button type="submit" class="text-muted-foreground text-sm underline-offset-4 hover:underline">
           Sign out
         </button>
       </form>
