@@ -388,9 +388,9 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Automated
 
-- [x] 1.1 Migration applies cleanly: `npx supabase db reset`
-- [x] 1.2 Type checking passes: `npm run lint`
-- [x] 1.3 Build succeeds: `npm run build`
+- [x] 1.1 Migration applies cleanly: `npx supabase db reset` — 8ab3e08
+- [x] 1.2 Type checking passes: `npm run lint` — 8ab3e08
+- [x] 1.3 Build succeeds: `npm run build` — 8ab3e08
 
 #### Manual
 
@@ -401,8 +401,8 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Automated
 
-- [ ] 2.1 Type checking passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
 
 #### Manual
 
