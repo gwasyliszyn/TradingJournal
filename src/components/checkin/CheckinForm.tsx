@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { CheckIn, ScoreBand } from "@/types";
+import type { CheckInFormData, ScoreBand } from "@/types";
 import { EMOTIONS, MARKET_BIASES, RISK_MODES } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,10 @@ import { getScoreBand } from "@/lib/services/readiness-score";
 
 type Section = "physical" | "mental" | "result";
 
+type ExistingCheckinData = CheckInFormData & { readiness_score: number };
+
 interface CheckinFormProps {
-  existingCheckin?: CheckIn | null;
+  existingCheckin?: ExistingCheckinData | null;
 }
 
 export default function CheckinForm({ existingCheckin }: CheckinFormProps) {

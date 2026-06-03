@@ -5,13 +5,38 @@ import { getTodayCheckin } from "@/lib/services/checkin";
 import CheckinForm from "@/components/checkin/CheckinForm";
 
 const { user } = Astro.locals;
-let checkin = null;
+let checkinData: {
+  sleep: number;
+  energy: number;
+  stress: number;
+  focus: number;
+  emotion: string;
+  market_bias: string;
+  risk_mode: string;
+  readiness_score: number;
+} | null = null;
 
 if (user) {
   const supabase = createClient(Astro.request.headers, Astro.cookies);
   if (supabase) {
-    const result = await getTodayCheckin(supabase, user.id);
-    checkin = result?.checkin ?? null;
+    try {
+      const result = await getTodayCheckin(supabase, user.id);
+      const c = result?.checkin;
+      if (c) {
+        checkinData = {
+          sleep: c.sleep,
+          energy: c.energy,
+          stress: c.stress,
+          focus: c.focus,
+          emotion: c.emotion,
+          market_bias: c.market_bias,
+          risk_mode: c.risk_mode,
+          readiness_score: c.readiness_score,
+        };
+      }
+    } catch {
+      // Supabase unavailable — render empty form
+    }
   }
 }
 ---
@@ -20,7 +45,7 @@ if (user) {
   <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
     <div class="w-full max-w-lg space-y-6">
       <h1 class="text-center text-2xl font-bold tracking-tight">Pre-market Check-in</h1>
-      <CheckinForm client:load existingCheckin={checkin} />
+      <CheckinForm client:load existingCheckin={checkinData} />
     </div>
   </div>
 </Layout>

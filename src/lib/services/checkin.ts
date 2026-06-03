@@ -5,9 +5,19 @@ import type { CheckIn, CheckInFormData, Session } from "@/types";
 export async function getOrCreateTodaySession(supabase: SupabaseClient, userId: string): Promise<Session> {
   const today = new Date().toISOString().split("T")[0];
 
+  const { data: existing, error: selectError } = await supabase
+    .from("sessions")
+    .select()
+    .eq("user_id", userId)
+    .eq("session_date", today)
+    .maybeSingle();
+
+  if (selectError) throw selectError;
+  if (existing) return existing as Session;
+
   const { data, error } = await supabase
     .from("sessions")
-    .upsert({ user_id: userId, session_date: today, status: "active" }, { onConflict: "user_id,session_date" })
+    .insert({ user_id: userId, session_date: today, status: "active" })
     .select()
     .single();
 
