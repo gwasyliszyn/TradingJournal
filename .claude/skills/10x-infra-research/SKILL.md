@@ -1,18 +1,12 @@
 ---
 name: 10x-infra-research
 description: >
-  Research and recommend an MVP deployment platform by combining tech-stack
-  context, a short developer interview, and parallel web research scored against
-  five agent-friendly platform criteria. Cross-checks the top recommendation
-  through three anti-bias lenses (devil's advocate, pre-mortem, unknown unknowns)
-  before writing context/foundation/infrastructure.md with a scored platform
-  comparison, rationale, and risk register. Use when the user needs to pick a
-  hosting / deployment / maintenance platform for an MVP and wants a
-  well-researched, bias-checked decision rather than a gut call.
-  Trigger phrases: "choose a platform", "where should I deploy", "infra research",
-  "deployment platform for my MVP", "wybierz platformę", "gdzie deployować",
-  "infrastructure decision", "hosting choice", "jaka platforma do deploymentu".
-  Use AFTER /10x-prd or /10x-tech-stack-selector, BEFORE /10x-implement.
+  Research and recommend an MVP deployment platform via a short interview plus
+  parallel, bias-checked web research; writes context/foundation/infrastructure.md
+  with a scored comparison and risk register. Trigger phrases: "choose a platform",
+  "where should I deploy", "infra research", "wybierz platformę",
+  "gdzie deployować", "jaka platforma do deploymentu". Use AFTER /10x-prd or
+  /10x-tech-stack-selector, BEFORE /10x-implement.
 argument-hint: "[path-to-tech-stack-or-prd]"
 allowed-tools:
   - Read
@@ -125,10 +119,12 @@ AskUserQuestion:
 AskUserQuestion:
 - question: "Do you or your team already have hands-on experience with any specific platform you'd feel comfortable deploying to?"
   header: "Existing familiarity"
-  options:  
+  options:
+  - label: "Yes — Vercel / Netlify"
+    description: "Comfortable with JAMstack-style platforms."
   - label: "Yes — Cloudflare (Workers / Pages)"
     description: "Comfortable with edge-first deployment."
-  - label: "Yes — Fly.io"
+  - label: "Yes — Railway / Render / Fly.io"
     description: "Comfortable with container-based PaaS."
   - label: "Yes — AWS / GCP / Azure"
     description: "Comfortable with hyperscaler infrastructure."
@@ -175,8 +171,11 @@ Use subagents to research platforms in parallel. The goal is to gather enough si
 | Platform | Primary use case |
 |---|---|
 | Cloudflare Workers + Pages | Edge-first, serverless JS/TS, global CDN |
+| Vercel | Frontend + serverless functions, Next.js-native |
+| Netlify | Frontend + serverless, JAMstack, form/auth primitives |
 | Fly.io | Container-based PaaS, persistent processes, multi-region |
-
+| Railway | Full-stack PaaS, databases co-located, fast DX |
+| Render | Container/static hosting, free tier, cron jobs |
 
 For each platform, spawn a subagent with a focused research prompt. Run all six in parallel:
 
@@ -216,8 +215,11 @@ Score each researched platform against the five criteria from `references/agent-
 | Platform | CLI-first | Managed/Serverless | Agent-readable docs | Stable deploy API | MCP / Integration | Total |
 |---|---|---|---|---|---|---|
 | Cloudflare | | | | | | |
+| Vercel | | | | | | |
+| Netlify | | | | | | |
 | Fly.io | | | | | | |
-
+| Railway | | | | | | |
+| Render | | | | | | |
 
 Soft-weight the criteria by interview answers:
 - Q2 "minimize cost" → penalize platforms with expensive base tiers.

@@ -68,6 +68,7 @@ Create the foundational data layer: Supabase migration with `sessions` and `chec
 **Contract**:
 
 `sessions` table:
+
 - `id` uuid PK (gen_random_uuid)
 - `user_id` uuid NOT NULL FK → auth.users ON DELETE CASCADE
 - `session_date` date NOT NULL
@@ -77,6 +78,7 @@ Create the foundational data layer: Supabase migration with `sessions` and `chec
 - UNIQUE (user_id, session_date)
 
 `check_ins` table:
+
 - `id` uuid PK (gen_random_uuid)
 - `session_id` uuid NOT NULL FK → sessions ON DELETE CASCADE, UNIQUE
 - `user_id` uuid NOT NULL FK → auth.users ON DELETE CASCADE
@@ -364,6 +366,7 @@ The main consideration is Cloudflare Workers' 10ms CPU limit on the free tier. A
 ## Migration Notes
 
 This is the first Supabase migration. Prerequisites:
+
 - Local Supabase must be running (`npx supabase start`)
 - Migration applies via `npx supabase db reset` (resets and replays all migrations)
 - For remote/production: `npx supabase db push` after connecting to the hosted project
@@ -406,7 +409,7 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Manual
 
-- [ ] 2.3 POST /api/checkin with valid data returns 200 with correct score
+- [x] 2.3 POST /api/checkin with valid data returns 200 with correct score
 - [ ] 2.4 POST /api/checkin without auth returns 401
 - [ ] 2.5 POST /api/checkin with invalid data returns 400
 - [ ] 2.6 Second POST upserts (no duplicate check-in)
@@ -421,10 +424,10 @@ The sessions table shape is intentionally forward-looking: the `status` column a
 
 #### Manual
 
-- [ ] 3.3 Full check-in flow works in browser (section 1 → section 2 → score)
+- [x] 3.3 Full check-in flow works in browser (section 1 → section 2 → score)
 - [ ] 3.4 Score displays with correct color band
-- [ ] 3.5 Existing check-in pre-fills on page reload
-- [ ] 3.6 Edit flow works (pre-filled values, score recalculates)
-- [ ] 3.7 Unauthenticated access redirects to /auth/signin
-- [ ] 3.8 Dashboard shows check-in link and score badge
-- [ ] 3.9 App interior uses clean light theme (no cosmic gradient)
+- [x] 3.5 Existing check-in pre-fills on page reload
+- [x] 3.6 Edit flow works (pre-filled values, score recalculates)
+- [x] 3.7 Unauthenticated access redirects to /auth/signin
+- [x] 3.8 Dashboard shows check-in link and score badge
+- [x] 3.9 App interior uses clean light theme (no cosmic gradient)
