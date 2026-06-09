@@ -545,8 +545,8 @@ The `session_plans` table follows the same one-to-one pattern as `check_ins` (UN
 
 #### Automated
 
-- [x] 2.1 Type checking passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint` — 3a71883
+- [x] 2.2 Build succeeds: `npm run build` — 3a71883
 
 #### Manual
 
@@ -561,8 +561,8 @@ The `session_plans` table follows the same one-to-one pattern as `check_ins` (UN
 
 #### Automated
 
-- [ ] 3.1 Lint passes: `npm run lint`
-- [ ] 3.2 Build succeeds: `npm run build`
+- [x] 3.1 Lint passes: `npm run lint`
+- [x] 3.2 Build succeeds: `npm run build`
 
 #### Manual
 

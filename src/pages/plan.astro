@@ -1,0 +1,37 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { getTodayPlan } from "@/lib/services/plan";
+import PlanForm from "@/components/plan/PlanForm";
+
+const { user } = Astro.locals;
+let planData: { goal: string; max_trades: number; max_daily_loss_r: number } | null = null;
+
+if (user) {
+  const supabase = createClient(Astro.request.headers, Astro.cookies);
+  if (supabase) {
+    try {
+      const result = await getTodayPlan(supabase, user.id);
+      const p = result?.plan;
+      if (p) {
+        planData = {
+          goal: p.goal,
+          max_trades: p.max_trades,
+          max_daily_loss_r: p.max_daily_loss_r,
+        };
+      }
+    } catch {
+      // Supabase unavailable — render empty form
+    }
+  }
+}
+---
+
+<Layout title="Session Plan">
+  <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
+    <div class="w-full max-w-lg space-y-6">
+      <h1 class="text-center text-2xl font-bold tracking-tight">Session Plan</h1>
+      <PlanForm client:load existingPlan={planData} />
+    </div>
+  </div>
+</Layout>
