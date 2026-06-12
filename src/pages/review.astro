@@ -1,0 +1,65 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { getTodayReview } from "@/lib/services/review";
+import { getCheckinBySession } from "@/lib/services/checkin";
+import { getPlanBySession } from "@/lib/services/plan";
+import { getTradesBySession } from "@/lib/services/trades";
+import { calculateProcessScore } from "@/lib/services/process-score";
+import type { ProcessScoreResult } from "@/types";
+import ReviewForm from "@/components/review/ReviewForm";
+
+const { user } = Astro.locals;
+let reviewData: {
+  plan_adherence: string;
+  what_went_wrong: string;
+  rule_broken: boolean;
+  goal_next_session: string;
+  process_score: number;
+} | null = null;
+let scoreResult: ProcessScoreResult | null = null;
+
+if (user) {
+  const supabase = createClient(Astro.request.headers, Astro.cookies);
+  if (supabase) {
+    try {
+      const result = await getTodayReview(supabase, user.id);
+      if (result?.review) {
+        const r = result.review;
+        reviewData = {
+          plan_adherence: r.plan_adherence,
+          what_went_wrong: r.what_went_wrong,
+          rule_broken: r.rule_broken,
+          goal_next_session: r.goal_next_session,
+          process_score: r.process_score,
+        };
+
+        const [checkin, plan, trades] = await Promise.all([
+          getCheckinBySession(supabase, result.session.id),
+          getPlanBySession(supabase, result.session.id),
+          getTradesBySession(supabase, result.session.id),
+        ]);
+
+        scoreResult = calculateProcessScore({
+          checkinExists: checkin !== null,
+          planExists: plan !== null,
+          trades,
+          maxDailyLossR: plan?.max_daily_loss_r ?? null,
+          ruleBroken: r.rule_broken,
+        });
+      }
+    } catch {
+      // Supabase unavailable — render empty form
+    }
+  }
+}
+---
+
+<Layout title="Post-session Review">
+  <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
+    <div class="w-full max-w-lg space-y-6">
+      <h1 class="text-center text-2xl font-bold tracking-tight">Post-session Review</h1>
+      <ReviewForm client:load existingReview={reviewData} existingScoreResult={scoreResult} />
+    </div>
+  </div>
+</Layout>

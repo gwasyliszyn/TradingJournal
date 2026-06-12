@@ -399,22 +399,22 @@ This is the third Supabase migration. Prerequisites:
 
 #### Automated
 
-- [x] 1.1 Migration applies cleanly: `npx supabase db reset`
-- [x] 1.2 Type checking passes: `npm run lint`
-- [x] 1.3 Build succeeds: `npm run build`
+- [x] 1.1 Migration applies cleanly: `npx supabase db reset` — 4588224
+- [x] 1.2 Type checking passes: `npm run lint` — 4588224
+- [x] 1.3 Build succeeds: `npm run build` — 4588224
 
 #### Manual
 
-- [ ] 1.4 Table and RLS policies visible in Supabase Studio
-- [ ] 1.5 UNIQUE constraint on session_id visible
-- [ ] 1.6 RLS rejects unauthenticated inserts
+- [x] 1.4 Table and RLS policies visible in Supabase Studio — 4588224
+- [x] 1.5 UNIQUE constraint on session_id visible — 4588224
+- [x] 1.6 RLS rejects unauthenticated inserts — 4588224
 
 ### Phase 2: Service Layer + API Route
 
 #### Automated
 
-- [ ] 2.1 Type checking passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
 
 #### Manual
 
@@ -429,8 +429,8 @@ This is the third Supabase migration. Prerequisites:
 
 #### Automated
 
-- [ ] 3.1 Lint passes: `npm run lint`
-- [ ] 3.2 Build succeeds: `npm run build`
+- [x] 3.1 Lint passes: `npm run lint`
+- [x] 3.2 Build succeeds: `npm run build`
 
 #### Manual
 
