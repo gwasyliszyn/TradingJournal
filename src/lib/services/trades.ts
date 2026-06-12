@@ -9,7 +9,8 @@ export async function getTradesBySession(supabase: SupabaseClient, sessionId: st
     .order("created_at", { ascending: true });
 
   if (error) throw error;
-  return data as Trade[];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- PostgREST returns numeric(5,2) as string
+  return (data as Trade[]).map((t) => ({ ...t, result_r: Number(t.result_r) }));
 }
 
 export async function createTrade(
@@ -30,7 +31,8 @@ export async function createTrade(
     .single();
 
   if (error) throw error;
-  return trade as Trade;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return { ...trade, result_r: Number(trade.result_r) } as Trade;
 }
 
 export async function updateTrade(
@@ -49,11 +51,12 @@ export async function updateTrade(
     .single();
 
   if (error) throw error;
-  return trade as Trade;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return { ...trade, result_r: Number(trade.result_r) } as Trade;
 }
 
 export async function deleteTrade(supabase: SupabaseClient, tradeId: string, userId: string): Promise<void> {
-  const { error } = await supabase.from("trades").delete().eq("id", tradeId).eq("user_id", userId);
+  const { error } = await supabase.from("trades").delete().eq("id", tradeId).eq("user_id", userId).select().single();
 
   if (error) throw error;
 }

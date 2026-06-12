@@ -101,3 +101,36 @@ export const TRADING_MISTAKES = [
 ] as const;
 
 export const PLAN_COMPLIANCES = ["yes", "no", "partial"] as const;
+
+export interface SessionReview {
+  id: string;
+  session_id: string;
+  user_id: string;
+  plan_adherence: string;
+  what_went_wrong: string;
+  rule_broken: boolean;
+  goal_next_session: string;
+  process_score: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ReviewFormData {
+  plan_adherence: string;
+  what_went_wrong: string;
+  rule_broken: boolean;
+  goal_next_session: string;
+}
+
+export interface ScoreComponent {
+  label: string;
+  earned: boolean;
+  points: number;
+  maxPoints: number;
+}
+
+export interface ProcessScoreResult {
+  score: number;
+  components: ScoreComponent[];
+  band: ScoreBand;
+}

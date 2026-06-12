@@ -1,0 +1,34 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { getOrCreateTodaySession } from "@/lib/services/checkin";
+import { getTradesBySession } from "@/lib/services/trades";
+import TradesPage from "@/components/trades/TradesPage";
+import type { Trade } from "@/types";
+
+const { user } = Astro.locals;
+let sessionId = "";
+let trades: Trade[] = [];
+
+if (user) {
+  const supabase = createClient(Astro.request.headers, Astro.cookies);
+  if (supabase) {
+    try {
+      const session = await getOrCreateTodaySession(supabase, user.id);
+      sessionId = session.id;
+      trades = await getTradesBySession(supabase, session.id);
+    } catch {
+      // Supabase unavailable — render empty state
+    }
+  }
+}
+---
+
+<Layout title="Trades">
+  <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
+    <div class="w-full max-w-lg space-y-6">
+      <h1 class="text-center text-2xl font-bold tracking-tight">Trade Log</h1>
+      <TradesPage client:load initialTrades={trades} sessionId={sessionId} />
+    </div>
+  </div>
+</Layout>

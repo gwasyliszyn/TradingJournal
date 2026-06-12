@@ -1,25 +1,25 @@
 import { useState } from "react";
+import { TRADING_MISTAKES } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface GoalSelectorProps {
+interface MistakeSelectorProps {
   value: string | null;
   onChange: (value: string) => void;
-  predefinedOptions: readonly string[];
 }
 
-export function GoalSelector({ value, onChange, predefinedOptions }: GoalSelectorProps) {
-  const isPredefined = value !== null && predefinedOptions.includes(value);
+export function MistakeSelector({ value, onChange }: MistakeSelectorProps) {
+  const isPredefined = value !== null && (TRADING_MISTAKES as readonly string[]).includes(value);
   const isInitiallyCustom = value !== null && !isPredefined && value.length > 0;
   const [isCustom, setIsCustom] = useState(isInitiallyCustom);
   const [customText, setCustomText] = useState(isInitiallyCustom && value ? value : "");
 
   return (
     <div className="space-y-2">
-      <Label>Goal</Label>
-      <div role="group" aria-label="Goal" className="flex flex-wrap gap-2">
-        {predefinedOptions.map((option) => (
+      <Label>Main mistake</Label>
+      <div role="group" aria-label="Main mistake" className="flex flex-wrap gap-2">
+        {TRADING_MISTAKES.map((option) => (
           <Button
             key={option}
             type="button"
@@ -50,7 +50,7 @@ export function GoalSelector({ value, onChange, predefinedOptions }: GoalSelecto
       </div>
       {isCustom && (
         <Input
-          placeholder="Enter your goal..."
+          placeholder="Describe the mistake..."
           value={customText}
           onChange={(e) => {
             setCustomText(e.target.value);

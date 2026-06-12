@@ -22,7 +22,8 @@ export async function upsertPlan(
     .single();
 
   if (error) throw error;
-  return plan as SessionPlan;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return { ...plan, max_daily_loss_r: Number(plan.max_daily_loss_r) } as SessionPlan;
 }
 
 export async function getPlanBySession(supabase: SupabaseClient, sessionId: string): Promise<SessionPlan | null> {
@@ -30,7 +31,9 @@ export async function getPlanBySession(supabase: SupabaseClient, sessionId: stri
   const { data, error } = await supabase.from("session_plans").select().eq("session_id", sessionId).maybeSingle();
 
   if (error) throw error;
-  return data as SessionPlan | null;
+  if (!data) return null;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return { ...data, max_daily_loss_r: Number(data.max_daily_loss_r) } as SessionPlan;
 }
 
 export async function getTodayPlan(
