@@ -153,7 +153,10 @@ const nextStepDescriptions: Record<string, string> = {
                 <p class="text-3xl font-bold">{readinessScore}</p>
                 {bandColorClass && bandLabel && (
                   <span
-                    class:list={`mt-1 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${bandColorClass}`}
+                    class:list={[
+                      "mt-1 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+                      bandColorClass,
+                    ]}
                   >
                     {bandLabel}
                   </span>
@@ -164,7 +167,10 @@ const nextStepDescriptions: Record<string, string> = {
                 <p class="text-3xl font-bold">{processScore}</p>
                 {reviewBandColorClass && reviewBandLabel && (
                   <span
-                    class:list={`mt-1 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${reviewBandColorClass}`}
+                    class:list={[
+                      "mt-1 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+                      reviewBandColorClass,
+                    ]}
                   >
                     {reviewBandLabel}
                   </span>
@@ -198,7 +204,13 @@ const nextStepDescriptions: Record<string, string> = {
                   ]}
                 >
                   {step.completed ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="h-3.5 w-3.5"
+                      aria-hidden="true"
+                    >
                       <path
                         fill-rule="evenodd"
                         d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
@@ -214,7 +226,10 @@ const nextStepDescriptions: Record<string, string> = {
                   {step.summary ? (
                     step.summary.colorClass ? (
                       <span
-                        class:list={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${step.summary.colorClass}`}
+                        class:list={[
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+                          step.summary.colorClass,
+                        ]}
                       >
                         {step.summary.text}
                       </span>
