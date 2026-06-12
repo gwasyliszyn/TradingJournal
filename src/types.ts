@@ -122,6 +122,22 @@ export interface ReviewFormData {
   goal_next_session: string;
 }
 
+export interface SessionHistoryItem {
+  id: string;
+  session_date: string;
+  status: "active" | "complete" | "incomplete";
+  readiness_score: number | null;
+  process_score: number | null;
+}
+
+export interface SessionDetail {
+  session: Session;
+  checkin: CheckIn | null;
+  plan: SessionPlan | null;
+  trades: Trade[];
+  review: SessionReview | null;
+}
+
 export interface ScoreComponent {
   label: string;
   earned: boolean;
