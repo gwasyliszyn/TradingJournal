@@ -1,7 +1,7 @@
 ---
 change_id: s-04
 title: Today view
-status: implementing
+status: implemented
 created: 2026-06-12
 updated: 2026-06-12
 archived_at: null

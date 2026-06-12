@@ -141,14 +141,14 @@ No migration needed. This is a drop-in replacement of the dashboard template. Th
 
 #### Automated
 
-- [x] 1.1 Type checking passes: `npm run lint`
-- [x] 1.2 Build succeeds: `npm run build`
-- [x] 1.3 No new lint errors introduced
+- [x] 1.1 Type checking passes: `npm run lint` — bfe52cc
+- [x] 1.2 Build succeeds: `npm run build` — bfe52cc
+- [x] 1.3 No new lint errors introduced — bfe52cc
 
 #### Manual
 
-- [x] 1.4 Empty session shows all steps pending with Check-in CTA
-- [x] 1.5 Partial completion shows correct stepper state and next-step CTA
-- [x] 1.6 Full completion shows both scores with correct color bands
-- [x] 1.7 All step links navigate correctly regardless of completion state
-- [x] 1.8 Sign-out works from Today View
+- [x] 1.4 Empty session shows all steps pending with Check-in CTA — bfe52cc
+- [x] 1.5 Partial completion shows correct stepper state and next-step CTA — bfe52cc
+- [x] 1.6 Full completion shows both scores with correct color bands — bfe52cc
+- [x] 1.7 All step links navigate correctly regardless of completion state — bfe52cc
+- [x] 1.8 Sign-out works from Today View — bfe52cc
