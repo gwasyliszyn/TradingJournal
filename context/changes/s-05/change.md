@@ -3,7 +3,7 @@ change_id: s-05
 title: Session History
 status: implementing
 created: 2026-06-12
-updated: 2026-06-12
+updated: 2026-06-14
 archived_at: null
 ---
 

@@ -187,8 +187,8 @@ Create the two Astro pages (`/history` and `/history/[id]`) and add a navigation
 
 #### Automated
 
-- [x] 2.1 Type checking passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint` — ced3665
+- [x] 2.2 Build succeeds: `npm run build` — ced3665
 
 #### Manual
 
