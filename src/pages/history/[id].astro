@@ -1,0 +1,215 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { getSessionById } from "@/lib/services/sessions";
+import { getScoreBand } from "@/lib/services/readiness-score";
+import { getProcessScoreBand } from "@/lib/services/process-score";
+import type { SessionDetail } from "@/types";
+
+const { id } = Astro.params;
+const { user } = Astro.locals;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+let detail: SessionDetail | null = null;
+
+if (id && UUID_RE.test(id) && user) {
+  const supabase = createClient(Astro.request.headers, Astro.cookies);
+  if (supabase) {
+    try {
+      detail = await getSessionById(supabase, id, user.id);
+    } catch {
+      // Supabase unavailable — degrade gracefully
+    }
+  }
+}
+
+if (!detail) {
+  Astro.response.status = 404;
+}
+
+const session = detail?.session;
+const checkin = detail?.checkin ?? null;
+const plan = detail?.plan ?? null;
+const trades = detail?.trades ?? [];
+const review = detail?.review ?? null;
+
+function formatDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+const statusLabel = session?.status === "complete" ? "Complete" : "Incomplete";
+const statusColor = session?.status === "complete" ? "text-green-600 bg-green-100" : "text-muted-foreground bg-muted";
+
+const readinessBand = checkin ? getScoreBand(checkin.readiness_score) : null;
+const processBand = review ? getProcessScoreBand(review.process_score) : null;
+
+const pageTitle = session ? `Session — ${formatDate(session.session_date)}` : "Session Not Found";
+---
+
+<Layout title={pageTitle}>
+  <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
+    <div class="w-full max-w-lg space-y-4">
+      <a href="/history" class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm">
+        &larr; Session History
+      </a>
+
+      {
+        session ? (
+          <>
+            <div class="flex items-center justify-between">
+              <h1 class="text-2xl font-bold tracking-tight">{formatDate(session.session_date)}</h1>
+              <span
+                class:list={["inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium", statusColor]}
+              >
+                {statusLabel}
+              </span>
+            </div>
+
+            {/* Check-in */}
+            <div class="bg-card rounded-xl border p-4 shadow-sm">
+              <h2 class="mb-3 font-semibold">Pre-market Check-in</h2>
+              {checkin ? (
+                <div class="space-y-2">
+                  <div class="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <span class="text-muted-foreground">Sleep:</span> {checkin.sleep}/5
+                    </div>
+                    <div>
+                      <span class="text-muted-foreground">Energy:</span> {checkin.energy}/5
+                    </div>
+                    <div>
+                      <span class="text-muted-foreground">Stress:</span> {checkin.stress}/5
+                    </div>
+                    <div>
+                      <span class="text-muted-foreground">Focus:</span> {checkin.focus}/5
+                    </div>
+                  </div>
+                  <div class="text-sm">
+                    <span class="text-muted-foreground">Emotion:</span> {checkin.emotion}
+                  </div>
+                  <div class="text-sm">
+                    <span class="text-muted-foreground">Market bias:</span> {checkin.market_bias}
+                  </div>
+                  <div class="text-sm">
+                    <span class="text-muted-foreground">Risk mode:</span> {checkin.risk_mode}
+                  </div>
+                  {readinessBand && (
+                    <div class="pt-1">
+                      <span
+                        class:list={[
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+                          readinessBand.colorClass,
+                        ]}
+                      >
+                        Readiness: {checkin.readiness_score} — {readinessBand.label}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p class="text-muted-foreground text-sm">Not completed</p>
+              )}
+            </div>
+
+            {/* Plan */}
+            <div class="bg-card rounded-xl border p-4 shadow-sm">
+              <h2 class="mb-3 font-semibold">Session Plan</h2>
+              {plan ? (
+                <div class="space-y-1 text-sm">
+                  <div>
+                    <span class="text-muted-foreground">Goal:</span> {plan.goal}
+                  </div>
+                  <div>
+                    <span class="text-muted-foreground">Max trades:</span> {plan.max_trades}
+                  </div>
+                  <div>
+                    <span class="text-muted-foreground">Max daily loss:</span> {plan.max_daily_loss_r}R
+                  </div>
+                </div>
+              ) : (
+                <p class="text-muted-foreground text-sm">Not completed</p>
+              )}
+            </div>
+
+            {/* Trades */}
+            <div class="bg-card rounded-xl border p-4 shadow-sm">
+              <h2 class="mb-3 font-semibold">Trades</h2>
+              {trades.length > 0 ? (
+                <div class="space-y-3">
+                  {trades.map((trade, i) => (
+                    <div class="border-border border-t pt-3 first:border-t-0 first:pt-0">
+                      <p class="text-sm font-medium">
+                        Trade {i + 1}: {trade.instrument}
+                      </p>
+                      <div class="mt-1 space-y-0.5 text-sm">
+                        <div>
+                          <span class="text-muted-foreground">Setup:</span> {trade.setup_name}
+                        </div>
+                        <div>
+                          <span class="text-muted-foreground">Result:</span> {trade.result_r > 0 ? "+" : ""}
+                          {trade.result_r}R
+                        </div>
+                        <div>
+                          <span class="text-muted-foreground">Plan compliance:</span> {trade.plan_compliance}
+                        </div>
+                        <div>
+                          <span class="text-muted-foreground">Mistake:</span> {trade.main_mistake}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p class="text-muted-foreground text-sm">No trades logged</p>
+              )}
+            </div>
+
+            {/* Review */}
+            <div class="bg-card rounded-xl border p-4 shadow-sm">
+              <h2 class="mb-3 font-semibold">Post-session Review</h2>
+              {review ? (
+                <div class="space-y-1 text-sm">
+                  <div>
+                    <span class="text-muted-foreground">Plan adherence:</span> {review.plan_adherence}
+                  </div>
+                  <div>
+                    <span class="text-muted-foreground">What went wrong:</span> {review.what_went_wrong || "—"}
+                  </div>
+                  <div>
+                    <span class="text-muted-foreground">Rule broken:</span> {review.rule_broken ? "Yes" : "No"}
+                  </div>
+                  <div>
+                    <span class="text-muted-foreground">Goal for next session:</span> {review.goal_next_session}
+                  </div>
+                  {processBand && (
+                    <div class="pt-1">
+                      <span
+                        class:list={[
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+                          processBand.colorClass,
+                        ]}
+                      >
+                        Process: {review.process_score} — {processBand.label}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p class="text-muted-foreground text-sm">Not completed</p>
+              )}
+            </div>
+          </>
+        ) : (
+          <div class="bg-card rounded-xl border p-6 shadow-sm">
+            <p class="text-muted-foreground text-center text-sm">Session not found.</p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</Layout>

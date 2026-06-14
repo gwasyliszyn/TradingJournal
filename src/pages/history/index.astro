@@ -1,0 +1,117 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { getSessionHistory } from "@/lib/services/sessions";
+import { getScoreBand } from "@/lib/services/readiness-score";
+import { getProcessScoreBand } from "@/lib/services/process-score";
+import type { SessionHistoryItem } from "@/types";
+
+const { user } = Astro.locals;
+let sessions: SessionHistoryItem[] = [];
+
+if (user) {
+  const supabase = createClient(Astro.request.headers, Astro.cookies);
+  if (supabase) {
+    try {
+      sessions = await getSessionHistory(supabase, user.id);
+    } catch {
+      // Supabase unavailable — degrade gracefully
+    }
+  }
+}
+
+function formatDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function getStatusLabel(status: SessionHistoryItem["status"]): string {
+  return status === "complete" ? "Complete" : "Incomplete";
+}
+
+function getStatusColor(status: SessionHistoryItem["status"]): string {
+  return status === "complete" ? "text-green-600 bg-green-100" : "text-muted-foreground bg-muted";
+}
+---
+
+<Layout title="Session History">
+  <div class="bg-background text-foreground flex min-h-screen items-start justify-center px-4 pt-12">
+    <div class="w-full max-w-lg space-y-4">
+      <h1 class="text-center text-2xl font-bold tracking-tight">Session History</h1>
+
+      {
+        sessions.length === 0 ? (
+          <div class="bg-card rounded-xl border p-6 shadow-sm">
+            <p class="text-muted-foreground text-center text-sm">
+              No past sessions yet. Complete your first trading day to see it here.
+            </p>
+          </div>
+        ) : (
+          <div class="space-y-2">
+            {sessions.map((session) => {
+              const statusLabel = getStatusLabel(session.status);
+              const statusColor = getStatusColor(session.status);
+              const readinessBand = session.readiness_score !== null ? getScoreBand(session.readiness_score) : null;
+              const processBand = session.process_score !== null ? getProcessScoreBand(session.process_score) : null;
+
+              return (
+                <a
+                  href={`/history/${session.id}`}
+                  class="bg-card hover:bg-accent block rounded-xl border px-4 py-3 shadow-sm transition-colors"
+                >
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium">{formatDate(session.session_date)}</p>
+                    <span
+                      class:list={[
+                        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+                        statusColor,
+                      ]}
+                    >
+                      {statusLabel}
+                    </span>
+                  </div>
+                  <div class="mt-2 flex gap-3">
+                    {readinessBand ? (
+                      <span
+                        class:list={[
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+                          readinessBand.colorClass,
+                        ]}
+                      >
+                        Readiness: {session.readiness_score} — {readinessBand.label}
+                      </span>
+                    ) : (
+                      <span class="text-muted-foreground text-xs">No readiness score</span>
+                    )}
+                    {processBand ? (
+                      <span
+                        class:list={[
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+                          processBand.colorClass,
+                        ]}
+                      >
+                        Process: {session.process_score} — {processBand.label}
+                      </span>
+                    ) : (
+                      <span class="text-muted-foreground text-xs">No process score</span>
+                    )}
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )
+      }
+
+      <div class="text-center">
+        <a href="/dashboard" class="text-muted-foreground text-sm underline-offset-4 hover:underline">
+          Back to Today
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
