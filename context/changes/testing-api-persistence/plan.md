@@ -306,9 +306,9 @@ Cleanup in `afterAll` — delete User A's and User B's test data.
 
 #### Automated
 
-- [x] 3.1 `npx vitest run tests/integration/access-control.test.ts` — all 6 tests pass
-- [x] 3.2 `npx vitest run` — full suite passes
-- [x] 3.3 `npm run lint` passes
+- [x] 3.1 `npx vitest run tests/integration/access-control.test.ts` — all 6 tests pass — dd25d71
+- [x] 3.2 `npx vitest run` — full suite passes — dd25d71
+- [x] 3.3 `npm run lint` passes — dd25d71
 
 #### Manual
 

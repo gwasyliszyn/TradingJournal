@@ -1,7 +1,7 @@
 ---
 id: testing-api-persistence
 title: "Test Phase 2 — API persistence + access control"
-status: implementing
+status: implemented
 created: 2026-06-30
 updated: 2026-06-30
 risks: "#3, #5"
