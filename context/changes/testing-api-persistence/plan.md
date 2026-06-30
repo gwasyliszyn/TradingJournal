@@ -280,11 +280,11 @@ Cleanup in `afterAll` — delete User A's and User B's test data.
 
 #### Automated
 
-- [x] 1.1 `npm install` completes without errors
-- [x] 1.2 `npx vitest run` executes and exits 0
-- [x] 1.3 `npm run build` passes
-- [x] 1.4 `npx astro check` passes
-- [x] 1.5 `npm run lint` passes
+- [x] 1.1 `npm install` completes without errors — 7f4b7d0
+- [x] 1.2 `npx vitest run` executes and exits 0 — 7f4b7d0
+- [x] 1.3 `npm run build` passes — 7f4b7d0
+- [x] 1.4 `npx astro check` passes — 7f4b7d0
+- [x] 1.5 `npm run lint` passes — 7f4b7d0
 
 #### Manual
 
@@ -295,8 +295,8 @@ Cleanup in `afterAll` — delete User A's and User B's test data.
 
 #### Automated
 
-- [ ] 2.1 `npx vitest run tests/integration/data-persistence.test.ts` — all 6 tests pass
-- [ ] 2.2 `npm run lint` passes
+- [x] 2.1 `npx vitest run tests/integration/data-persistence.test.ts` — all 6 tests pass
+- [x] 2.2 `npm run lint` passes
 
 #### Manual
 
