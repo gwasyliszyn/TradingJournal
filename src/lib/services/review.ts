@@ -57,8 +57,14 @@ export async function getTodayReview(
   return { session: session as Session, review };
 }
 
-export async function completeSession(supabase: SupabaseClient, sessionId: string): Promise<void> {
-  const { error } = await supabase.from("sessions").update({ status: "complete" }).eq("id", sessionId);
+export async function completeSession(supabase: SupabaseClient, sessionId: string, userId: string): Promise<void> {
+  const { error } = await supabase
+    .from("sessions")
+    .update({ status: "complete" })
+    .eq("id", sessionId)
+    .eq("user_id", userId)
+    .select()
+    .single();
 
   if (error) throw error;
 }

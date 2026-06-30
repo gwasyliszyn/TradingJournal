@@ -96,7 +96,7 @@ export const POST: APIRoute = async (context) => {
     });
 
     const review = await upsertReview(supabase, session.id, user.id, formData, processScoreResult.score);
-    await completeSession(supabase, session.id);
+    await completeSession(supabase, session.id, user.id);
 
     return new Response(
       JSON.stringify({
