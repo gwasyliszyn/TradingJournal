@@ -24,5 +24,26 @@
             "Bash(rm -rf *)"
         ],
         "deny": []
+    },
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash .claude/hooks/eslint-hook.sh",
+                        "timeout": 30,
+                        "statusMessage": "Running ESLint --fix..."
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash .claude/hooks/typecheck-hook.sh",
+                        "timeout": 60,
+                        "statusMessage": "Running TypeScript typecheck..."
+                    }
+                ]
+            }
+        ]
     }
 }
