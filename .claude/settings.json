@@ -28,7 +28,7 @@
     "hooks": {
         "PostToolUse": [
             {
-                "matcher": "Edit",
+                "matcher": "Edit|Write",
                 "hooks": [
                     {
                         "type": "command",
@@ -39,8 +39,8 @@
                     {
                         "type": "command",
                         "command": "bash .claude/hooks/typecheck-hook.sh",
-                        "timeout": 60,
-                        "statusMessage": "Running TypeScript typecheck..."
+                        "timeout": 30,
+                        "statusMessage": "Running typecheck..."
                     }
                 ]
             }
