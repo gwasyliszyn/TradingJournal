@@ -1,4 +1,5 @@
 // @ts-check
+import process from "node:process";
 import { defineConfig, envField } from "astro/config";
 
 import react from "@astrojs/react";
@@ -10,6 +11,10 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   output: "server",
   integrations: [react(), sitemap()],
+  // The dev toolbar overlays the viewport and intercepts pointer events, so
+  // Playwright clicks land on it instead of the app. playwright.config.ts sets
+  // E2E=1 when it starts the dev server; normal `npm run dev` keeps the toolbar.
+  devToolbar: { enabled: process.env.E2E !== "1" },
   vite: {
     plugins: [tailwindcss()],
   },
