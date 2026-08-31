@@ -1,49 +1,58 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(npm *)",
-            "Bash(npx *)",
-            "Bash(node *)",
-            "Bash(git add *)",
-            "Bash(git commit *)",
-            "Bash(git diff *)",
-            "Bash(git log *)",
-            "Bash(git status *)",
-            "Bash(git branch *)",
-            "Bash(git checkout *)",
-            "Bash(git stash *)",
-            "Read",
-            "Edit",
-            "Write"
-        ],
-        "ask": [
-            "Bash(curl *)",
-            "Bash(wget *)",
-            "Bash(git push *)",
-            "Bash(git push)",
-            "Bash(rm -rf *)"
-        ],
-        "deny": []
-    },
-    "hooks": {
-        "PostToolUse": [
-            {
-                "matcher": "Edit|Write",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "bash .claude/hooks/eslint-hook.sh",
-                        "timeout": 30,
-                        "statusMessage": "Running ESLint --fix..."
-                    },
-                    {
-                        "type": "command",
-                        "command": "bash .claude/hooks/typecheck-hook.sh",
-                        "timeout": 30,
-                        "statusMessage": "Running typecheck..."
-                    }
-                ]
-            }
+  "permissions": {
+    "allow": [
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git status *)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)",
+      "Bash(git stash *)",
+      "Read",
+      "Edit",
+      "Write",
+      "Bash(npx playwright *)",
+      "Bash(node \"C:\\\\Users\\\\WASYLI~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--source-TradingJournal\\\\802331f1-36a8-450c-8765-b3e7f6ccaf3f\\\\scratchpad\\\\check-supabase.mjs\")",
+      "Bash(npm config *)",
+      "Bash(openssl s_client -connect tershtaofsynqiuifeiy.supabase.co:443 -showcerts)",
+      "Bash(awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/')",
+      "Bash(openssl crl2pkcs7 *)",
+      "Bash(openssl pkcs7 *)",
+      "Bash(cp \"C:\\\\Users\\\\WASYLI~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--source-TradingJournal\\\\802331f1-36a8-450c-8765-b3e7f6ccaf3f\\\\scratchpad\\\\corp-chain.pem\" c:/source/TradingJournal/zscaler-ca.pem)",
+      "Bash(NODE_EXTRA_CA_CERTS=c:/source/TradingJournal/zscaler-ca.pem node \"C:\\\\Users\\\\WASYLI~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--source-TradingJournal\\\\802331f1-36a8-450c-8765-b3e7f6ccaf3f\\\\scratchpad\\\\check-supabase.mjs\")"
+    ],
+    "deny": [],
+    "ask": [
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(git push *)",
+      "Bash(git push)",
+      "Bash(rm -rf *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/eslint-hook.sh",
+            "timeout": 30,
+            "statusMessage": "Running ESLint --fix..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/typecheck-hook.sh",
+            "timeout": 30,
+            "statusMessage": "Running typecheck..."
+          }
         ]
-    }
+      }
+    ]
+  }
 }

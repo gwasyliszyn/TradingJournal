@@ -1,9 +1,9 @@
 {
   "package": "@przeprogramowani/10x-cli",
-  "version": "1.8.0",
+  "version": "1.20.0",
   "manifestVersion": 3,
-  "lastApplied": "2026-06-15T12:38:18.674Z",
-  "lessonId": "m3l4",
+  "lastApplied": "2026-08-31T06:01:17.957Z",
+  "lessonId": "m5l5",
   "course": "10xdevs3",
   "tool": "claude-code",
   "files": {
@@ -239,6 +239,68 @@
           "references/seed-test-pattern.md": "90fa8778a557d0c88320e839c6a8879735b3390b68ed89b3487258f2562b2f80",
           "SKILL.md": "994b511efafdcbe7526bb32a9908b330bd78326c42c5e41896983e497c61cd54"
         }
+      },
+      "10x-opportunity-map": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "df8ddeb8377253b41b2de7812dedcf3fce8ddf3489e4ad52a7cc20e8b72f939f"
+        }
+      },
+      "10x-mom-test": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "6b992b77c723413a9b805280cf83da0ca5b848742dca49129d34f59e241149e8"
+        }
+      },
+      "10x-impl-review-ci": {
+        "files": [
+          "references/impl-review-instructions.md",
+          "references/workflow-template.yml",
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "references/impl-review-instructions.md": "b045095889ac573f6f03b6e4d5c79f0bf199bb530a2dd40b3fee319d44af1cee",
+          "references/workflow-template.yml": "f9c039b74d595790ebb931876e08b30061d2f4d4064d0cb5466c52a064d64904",
+          "SKILL.md": "329af627486e1f0fd68e7546a0a758cee1c3cb2cd911c6d490a8152cceb03378"
+        }
+      },
+      "pack-init": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "044642e3cd6a68faa56f4913fc37f8f4b0d45807496d79fc8e82a726e73c73a6"
+        }
+      },
+      "tf-registry": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "292010b5bd488bae801e5046cf6fa2d7866b828e8080a2585d3f858a22e7377e"
+        }
+      },
+      "setup-cicd": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "7d9a05f1efb4780b5dd3d4e6a34d7eb529d385c8e1f2c2c66c2e53e2f07abceb"
+        }
+      },
+      "10x-goal-implement": {
+        "files": [
+          "references/implementation-discipline.md",
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "references/implementation-discipline.md": "48ce3409f64f0fecca701f80c9de90f9fda68bc52896e300a464893e30554da0",
+          "SKILL.md": "ae10f421991b53d8b59e9b9b9b0fa69fc3d5584f3d975fa6ff2864d7870c6b6f"
+        }
       }
     },
     "prompts": [
@@ -247,16 +309,68 @@
       "m1l5-2-constrain-approach.md",
       "m1l5-3-extend-prerequisites.md",
       "m1l5-4-store-plan.md",
-      "m3l2-ad-hoc-testing.md"
+      "m3l2-ad-hoc-testing.md",
+      "mvp-check.md",
+      "m4l2-1-territory-git-history.md",
+      "m4l2-2-structure-dependency-cruiser.md",
+      "m4l2-3-contributors-git.md",
+      "m4l2-repo-map-synthesis.md",
+      "m4l3-1-research-with-map.md",
+      "m4l3-2-ast-grep-verification.md",
+      "m4l4-1-new-change-intention.md",
+      "m4l4-2-refactor-opportunities-research.md",
+      "m4l4-3-ranking-ast-grep-verification.md",
+      "m4l5-1-domain-distillation.md",
+      "m4l5-2-invariant-aggregate-refactor.md",
+      "m4l5-3-anti-corruption-layer.md",
+      "m5l2-agent.md",
+      "m5l3-requirements.md",
+      "m5l3-cicd.md",
+      "m5l3-promptfoo.md",
+      "m5l4-shared-conventions.md",
+      "m5l4-shared-spec-skill.md",
+      "m5l4-github-packages-spec-pack.md",
+      "m5l4-github-packages-spec-cicd.md",
+      "m5l4-codeartifact-spec-cicd.md",
+      "m5l4-codeartifact-spec-terraform.md"
     ],
-    "configs": [],
+    "configs": [
+      "m5l4-github-packages-package.json.template",
+      "m5l4-github-packages-consumer.npmrc.template",
+      "m5l4-github-packages-install.js.template",
+      "m5l4-github-packages-uninstall.js.template",
+      "m5l4-github-packages-publish-ai-toolkit.yml.template"
+    ],
     "promptHashes": {
       "skill-explainer.md": "6ee36d65134a8f6ecc8062b15362bde673c702e1b71c09ac7455bc84e29b2848",
       "m1l5-1-plan-integration.md": "153e2dbc3d03c07e0e03776e3295fdeafc2b395e57454029f9403ff6ea29f606",
       "m1l5-2-constrain-approach.md": "1d2477cdc3c2a867a4bf79d3d1ba1151f0468875237f2322126b26e5d506c505",
       "m1l5-3-extend-prerequisites.md": "3418ae7c2ffc10f9cce9ad23b48b845033b57793fc2816df66c6deb8b6eae867",
       "m1l5-4-store-plan.md": "0f72fd90618f05bd8f6784825d217e128fa3148def28024995f1ad1026b34f48",
-      "m3l2-ad-hoc-testing.md": "6a4509b6b90d3ea9229d19dbec77aea0c6812d0d706144006f9465e195f5387f"
+      "m3l2-ad-hoc-testing.md": "6a4509b6b90d3ea9229d19dbec77aea0c6812d0d706144006f9465e195f5387f",
+      "mvp-check.md": "925dbc3beb572cb90e858c8ec1ed6c813803cc7169bbf8be727cf29a83ccd839",
+      "m4l2-1-territory-git-history.md": "37a48d9095fa02fe2147190a9d4fdcf74a780f556b1e9d25945dd06f33bec5f2",
+      "m4l2-2-structure-dependency-cruiser.md": "0b0a15d46647bc28c0d41c901b2d07366edb9172bc0a529abe03488fb8de186c",
+      "m4l2-3-contributors-git.md": "fc600f19f40cfbc16bec152e1326021b3118d95f43c7bd2519986dcf3318fb50",
+      "m4l2-repo-map-synthesis.md": "8112d4b13fcb4a909308a82a696a64ef1a659e9e3b20238eeae7cccf228352b4",
+      "m4l3-1-research-with-map.md": "b21933bc50ad0de9ad32bf3908d6081bd33632ed4dfb2519747c1a4294b2cec4",
+      "m4l3-2-ast-grep-verification.md": "6d0c4cc38281f68a2bb728580c177499dc0d812988cb68ae84885080148d62b8",
+      "m4l4-1-new-change-intention.md": "932b65e90f5f4c4ed289b14a457c9950ff59edd22e1a8a2baba5f6e8db3f20a0",
+      "m4l4-2-refactor-opportunities-research.md": "085635e4e677824f475daaadc2b6f7d1df2af6591bfd6fdfc0facbdefeee4413",
+      "m4l4-3-ranking-ast-grep-verification.md": "986364bd6fda83c28d746ef7bbd9f9383d6b9d26af84430cc6a28e89c74138c2",
+      "m4l5-1-domain-distillation.md": "9ff353da7881fb0e08f7950f18c3d3a3bf31dfd8b15a12d52d7cfbb02e2be20a",
+      "m4l5-2-invariant-aggregate-refactor.md": "fcf22eb1676913dabf73e278515b7d8e47d04bc271ed46bc658c08a3792b7721",
+      "m4l5-3-anti-corruption-layer.md": "c3ad9792233c1eeeadbb6f9522f01f0d4594448f17bbfd2e4002a6eabfb9e386",
+      "m5l2-agent.md": "76fdba2cd34ad290ffefef3c28d4adb9d6cac7964dc74bf57b84084ead8f336b",
+      "m5l3-requirements.md": "9afb43da9b7b35370c0a2e0f540e279911062cd4978e1f7ef8778eb2a9aaaa12",
+      "m5l3-cicd.md": "872a98942779fbb17172920e1c61d4f69a3397d7fb19231a2cd05ef0c3ae2767",
+      "m5l3-promptfoo.md": "806be147011125baf15437661ead810aa24bdb55e80089aa185ed6fd4894ae7f",
+      "m5l4-shared-conventions.md": "0627da1d55aa906424e750944d452859db84add0e2ab953b4528e8725fe697ec",
+      "m5l4-shared-spec-skill.md": "8bc4ebe1c178f545278305c6cc68569921a636894b9295a62846ab22bf11d4bb",
+      "m5l4-github-packages-spec-pack.md": "2f88d2d5ea99111bb29e4d4738186faea22d130ab00f7695955eb2eeedc0b9f4",
+      "m5l4-github-packages-spec-cicd.md": "fc2c73044682dddf89f06001c02b8f50ba34e35713f614e3615f6364b6542e1c",
+      "m5l4-codeartifact-spec-cicd.md": "49cc310354df0df3dddf2c124a0680d1160cdd557d6e67c2d101fb5a91f41ba9",
+      "m5l4-codeartifact-spec-terraform.md": "4dac6deb9695a02688f140c2c5c7a74ad7529155cb420cf57ff3c4d3c03e9db3"
     }
   },
   "lessons": {
@@ -965,6 +1079,152 @@
         "m1l5-4-store-plan.md",
         "m3l2-ad-hoc-testing.md"
       ],
+      "configs": []
+    },
+    "m0l0": {
+      "appliedAt": "2026-08-31T05:56:18.798Z",
+      "skills": {},
+      "prompts": [
+        "skill-explainer.md",
+        "mvp-check.md"
+      ],
+      "configs": []
+    },
+    "m4l1": {
+      "appliedAt": "2026-08-31T06:00:06.325Z",
+      "skills": {},
+      "prompts": [],
+      "configs": []
+    },
+    "m4l2": {
+      "appliedAt": "2026-08-31T06:00:11.173Z",
+      "skills": {},
+      "prompts": [
+        "m4l2-1-territory-git-history.md",
+        "m4l2-2-structure-dependency-cruiser.md",
+        "m4l2-3-contributors-git.md",
+        "m4l2-repo-map-synthesis.md"
+      ],
+      "configs": []
+    },
+    "m4l3": {
+      "appliedAt": "2026-08-31T06:00:16.532Z",
+      "skills": {},
+      "prompts": [
+        "m4l3-1-research-with-map.md",
+        "m4l3-2-ast-grep-verification.md"
+      ],
+      "configs": []
+    },
+    "m4l4": {
+      "appliedAt": "2026-08-31T06:00:21.391Z",
+      "skills": {},
+      "prompts": [
+        "m4l4-1-new-change-intention.md",
+        "m4l4-2-refactor-opportunities-research.md",
+        "m4l4-3-ranking-ast-grep-verification.md"
+      ],
+      "configs": []
+    },
+    "m4l5": {
+      "appliedAt": "2026-08-31T06:00:25.918Z",
+      "skills": {},
+      "prompts": [
+        "m4l5-1-domain-distillation.md",
+        "m4l5-2-invariant-aggregate-refactor.md",
+        "m4l5-3-anti-corruption-layer.md"
+      ],
+      "configs": []
+    },
+    "m5l1": {
+      "appliedAt": "2026-08-31T06:00:54.850Z",
+      "skills": {
+        "10x-opportunity-map": {
+          "files": [
+            "SKILL.md"
+          ]
+        },
+        "10x-mom-test": {
+          "files": [
+            "SKILL.md"
+          ]
+        }
+      },
+      "prompts": [],
+      "configs": []
+    },
+    "m5l2": {
+      "appliedAt": "2026-08-31T06:01:03.055Z",
+      "skills": {},
+      "prompts": [
+        "m5l2-agent.md"
+      ],
+      "configs": []
+    },
+    "m5l3": {
+      "appliedAt": "2026-08-31T06:01:07.540Z",
+      "skills": {
+        "10x-impl-review-ci": {
+          "files": [
+            "references/impl-review-instructions.md",
+            "references/workflow-template.yml",
+            "SKILL.md"
+          ]
+        }
+      },
+      "prompts": [
+        "m5l3-requirements.md",
+        "m5l3-cicd.md",
+        "m5l3-promptfoo.md"
+      ],
+      "configs": []
+    },
+    "m5l4": {
+      "appliedAt": "2026-08-31T06:01:12.270Z",
+      "skills": {
+        "pack-init": {
+          "files": [
+            "SKILL.md"
+          ]
+        },
+        "tf-registry": {
+          "files": [
+            "SKILL.md"
+          ]
+        },
+        "setup-cicd": {
+          "files": [
+            "SKILL.md"
+          ]
+        }
+      },
+      "prompts": [
+        "m5l4-shared-conventions.md",
+        "m5l4-shared-spec-skill.md",
+        "m5l4-github-packages-spec-pack.md",
+        "m5l4-github-packages-spec-cicd.md",
+        "m5l4-codeartifact-spec-cicd.md",
+        "m5l4-codeartifact-spec-terraform.md"
+      ],
+      "configs": [
+        "m5l4-github-packages-package.json.template",
+        "m5l4-github-packages-consumer.npmrc.template",
+        "m5l4-github-packages-install.js.template",
+        "m5l4-github-packages-uninstall.js.template",
+        "m5l4-github-packages-publish-ai-toolkit.yml.template"
+      ]
+    },
+    "m5l5": {
+      "appliedAt": "2026-08-31T06:01:17.957Z",
+      "skills": {
+        "10x-goal-implement": {
+          "files": [
+            "references/implementation-discipline.md",
+            "SKILL.md"
+          ]
+        }
+      },
+      "prompts": [],
       "configs": []
     }
   }
